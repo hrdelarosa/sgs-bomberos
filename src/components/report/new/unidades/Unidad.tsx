@@ -5,7 +5,6 @@ interface Props {
 }
 
 export default function Unidad({ unidad, children, cols }: Props) {
-  console.log(cols)
   return (
     <div className="flex flex-col gap-1 md:w-fit">
       <div>

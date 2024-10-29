@@ -8,7 +8,7 @@ export default function Input({ name, description, className }: Props) {
   return (
     <div className="w-fit">
       <label
-        htmlFor="inputname"
+        htmlFor={`input${name}`}
         className="block text-gray-800 font-semibold text-sm"
       >
         {name}
@@ -16,7 +16,7 @@ export default function Input({ name, description, className }: Props) {
       <div className="mt-2">
         <input
           type="text"
-          name="inputname"
+          name={`input${name}`}
           className={`block ${
             className ? `${className}` : 'w-56'
           } rounded-md py-1 px-1.5 ring-1 ring-inset ring-gray-400 focus:text-gray-800`}
