@@ -5,6 +5,7 @@ import SelectTime from '../../components/report/new/datos/SelectTime'
 import Unidad from '../../components/report/new/unidades/Unidad'
 import Checkbox from '../../components/UI/Checkbox'
 import Container from '../../components/UI/Container'
+import { INCIDENT_LIST } from '../../constans/incidentList'
 import Layout from '../../layouts/Layout'
 
 export default function NewReport() {
@@ -66,11 +67,9 @@ export default function NewReport() {
                   </div>
 
                   <datalist id="incidentes-list">
-                    <option value="Incendio"></option>
-                    <option value="Fuga o Derrame"></option>
-                    <option value="Rescate"></option>
-                    <option value="Abejas"></option>
-                    <option value="Otro"></option>
+                    {INCIDENT_LIST.map((incidente) => (
+                      <option key={incidente} value={incidente}></option>
+                    ))}
                   </datalist>
                 </div>
 
