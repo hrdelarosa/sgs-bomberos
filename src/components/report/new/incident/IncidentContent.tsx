@@ -21,7 +21,7 @@ export default function IncidentContent({ incidentType }: Props) {
             <Select text="Inmuebles" list={INCENDIO_INMUEBLES} />
             <TextArea name="Especifique" type="EspecifiqueIncendioInmuebles" />
 
-            <div className="w-[1.5px] h-32 bg-gray-600 opacity-20"></div>
+            <div className="w-[1.5px] h-32 mx-2 bg-gray-600 opacity-20"></div>
 
             <Select text="Otros" list={INCENDIO_OTROS} />
             <TextArea name="Especifique" type="EspecifiqueIncendioOtros" />
