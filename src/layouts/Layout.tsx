@@ -15,7 +15,7 @@ export default function Layout({ children, title }: Props) {
   return (
     <div className="dashboard h-screen">
       <SideBar isVisible={isAsideVisible} onClose={closeAside} />
-      <div className="aside lg:block hidden">
+      <div className="aside h-screen lg:block hidden">
         <Aside />
       </div>
 

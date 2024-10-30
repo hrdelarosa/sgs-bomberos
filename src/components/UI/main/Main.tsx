@@ -4,5 +4,9 @@ interface Props {
 }
 
 export default function Main({ children }: Props) {
-  return <main className="main bg-slate-100/65">{children}</main>
+  return (
+    <main className="main bg-slate-100/65 overflow-y-auto overflow-x-hidden">
+      {children}
+    </main>
+  )
 }
