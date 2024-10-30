@@ -9,15 +9,17 @@ import Unidad from '../../components/report/new/unidades/Unidad'
 import Checkbox from '../../components/UI/Checkbox'
 import Select from '../../components/report/new/Select'
 import TextArea from '../../components/report/new/TextArea'
+import IncidentContent from '../../components/report/new/incident/IncidentContent'
 import { DAÑOS_MATERIALES, INCIDENT_LIST } from '../../constants/incidentList'
 import { useAutoAnimation } from '../../hooks/useAutoAnimation'
-import IncidentContent from '../../components/report/new/incident/IncidentContent'
 
 export default function NewReport() {
   const [incidentType, setIncidentType] = useState('')
   const { animationParent } = useAutoAnimation()
 
-  const handleIncidentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIncidentChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setIncidentType(event.target.value)
   }
 
@@ -39,11 +41,74 @@ export default function NewReport() {
         <form
           ref={animationParent}
           onSubmit={handleSubmit}
-          className="bento w-full"
-          // className="flex flex-col gap-3 w-full"
+          className="flex flex-col gap-3 w-full"
         >
-          <Card title="Datos del Servicio" className="datos-servicios">
-            <div className="flex flex-col items-center gap-2 p-4 lg:items-start lg:w-[870px]">
+          <Card title="Datos del Servicio">
+            <div className="flex flex-col items-center gap-2 p-4 lg:items-start">
+              <DataContent>
+                <Input
+                  name="Nombre"
+                  description="Nombre del solicitante"
+                  className="w-[462px] lg:w-[492px]"
+                />
+                <Input
+                  name="Telefono"
+                  description="Telefono del solictante"
+                  className="w-40 lg:w-52"
+                />
+
+                <SelectTime text="Salida" />
+                <div className="md:hidden xl:flex flex flex-row gap-2">
+                  <SelectTime text="Control" />
+
+                  <Select
+                    text="Incidentes"
+                    handleChange={handleIncidentChange}
+                    list={INCIDENT_LIST}
+                  />
+                </div>
+              </DataContent>
+
+              <DataContent>
+                <Input
+                  name="Ubicación"
+                  description="Ubicación del servicio"
+                  className="w-[494px] lg:w-[524px]"
+                />
+                <Input name="Folio" className="w-32 lg:w-44" />
+
+                <SelectTime text="Llegada" />
+
+                <div
+                  ref={animationParent}
+                  className="md:hidden xl:flex flex flex-row gap-2"
+                >
+                  <SelectTime text="Base" />
+                  {incidentType === 'Otro' && (
+                    <Input name="Otro" className="w-44" />
+                  )}
+                </div>
+              </DataContent>
+
+              <div className="hidden md:block xl:hidden">
+                <DataContent animation={true}>
+                  <SelectTime text="Control" />
+
+                  <SelectTime text="Base" />
+
+                  <Select
+                    text="Incidentes"
+                    handleChange={handleIncidentChange}
+                    list={INCIDENT_LIST}
+                  />
+
+                  {incidentType === 'Otro' && (
+                    <Input name="Otro" className="w-44" />
+                  )}
+                </DataContent>
+              </div>
+            </div>
+            {/* <div className="flex flex-col items-center gap-2 p-4 lg:items-start lg:w-[870px]">
               <DataContent>
                 <Input
                   name="Nombre"
@@ -85,10 +150,10 @@ export default function NewReport() {
                   <Input name="Otro" className="w-44" />
                 )}
               </DataContent>
-            </div>
+            </div> */}
           </Card>
 
-          <Card title="Unidades" className="unidades-servicios">
+          <Card title="Unidades">
             <div className="flex flex-row justify-center lg:justify-normal lg:gap-6 gap-5 p-4 lg:w-[870px]">
               <Unidad unidad="Ambulancias">
                 <Checkbox num="24" />
@@ -144,33 +209,36 @@ export default function NewReport() {
 
           <IncidentContent incidentType={incidentType} />
 
-          {/* <div className="flex gap-3"> */}
-          {/* <Card title="Daños">
-            <div className="flex flex-row justify-center lg:justify-normal lg:gap-6 gap-5 p-4 lg:w-[870px]">
-              <Select text="Materiales" list={DAÑOS_MATERIALES} />
-              <TextArea name="Especifique" type="EspecifiqueDañosMateriales" />
+          <div className="flex gap-3">
+            <Card title="Daños">
+              <div className="flex flex-row justify-center lg:justify-normal lg:gap-6 gap-5 p-4 lg:w-[870px]">
+                <Select text="Materiales" list={DAÑOS_MATERIALES} />
+                <TextArea
+                  name="Especifique"
+                  type="EspecifiqueDañosMateriales"
+                />
 
-              <div className="w-[1.5px] h-32 mx-2 bg-gray-600 opacity-20"></div>
+                <div className="w-[1.5px] h-32 mx-2 bg-gray-600 opacity-20"></div>
 
-              <div className="flex flex-col justify-between">
-                <Input name="Heridos" className="w-[170px]" />
-                <Input name="Muertos" className="w-[170px]" />
+                <div className="flex flex-col justify-between">
+                  <Input name="Heridos" className="w-[170px]" />
+                  <Input name="Muertos" className="w-[170px]" />
+                </div>
+
+                <TextArea name="Parte Ambulancia" type="DañosParteAmbulancia" />
               </div>
+            </Card>
 
-              <TextArea name="Parte Ambulancia" type="DañosParteAmbulancia" />
-            </div>
-          </Card> */}
+            <Card title="Obsevaciones">
+              <div className="flex flex-row justify-normal p-4 h-40 w-[302px]">
+                <TextArea type="Observaciones" />
+              </div>
+            </Card>
+          </div>
 
-          <Card title="Obsevaciones" className="observaciones-servicio">
-            <div className="flex flex-row justify-normal p-4 h-40 w-[302px]">
-              <TextArea type="Observaciones" />
-            </div>
-          </Card>
-          {/* </div> */}
-
-          {/* <div>
+          <div>
             <button type="submit">Enviar</button>
-          </div> */}
+          </div>
         </form>
       </Container>
     </Layout>
