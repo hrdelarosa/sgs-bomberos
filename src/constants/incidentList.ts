@@ -33,3 +33,12 @@ export const DAÑOS_MATERIALES = [
   'Estructuras vecinas',
   'Otro',
 ]
+
+export const LEGALES = [
+  'S.P y V',
+  'Policía Estado',
+  'P.F.P',
+  'P.G.R',
+  'P.J.E',
+  'Otro',
+]
