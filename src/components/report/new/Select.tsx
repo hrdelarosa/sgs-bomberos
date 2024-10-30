@@ -8,7 +8,7 @@ interface Props {
 
 export default function Select({ text, handleChange, list }: Props) {
   return (
-    <div className="w-[170px] h-[30px]">
+    <div className="w-[170px] h-16">
       <label className="block mb-1 text-gray-800 font-semibold text-sm">
         {text}
       </label>
