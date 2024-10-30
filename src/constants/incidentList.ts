@@ -5,3 +5,31 @@ export const INCIDENT_LIST = [
   'Abejas',
   'Otro',
 ]
+
+export const INCENDIO_INMUEBLES = [
+  'Casa/Habitacion',
+  'Establecimiento',
+  'Escuela',
+  'Otro',
+]
+
+export const INCENDIO_OTROS = ['Terreno baldio', 'Vehiculo', 'Forestal', 'Otro']
+
+export const FUGA_DERRAME = ['Cilindro', 'Estacionario', 'Autotanque', 'Otro']
+
+export const ABEJAS = ['Dentro casa', 'Fuera casa', 'Terreno baldio', 'Otro']
+
+export const RESCATE_EQUIPO = [
+  'Cuerdas',
+  'Barretas',
+  'Herramienta combinada',
+  'Otro',
+]
+
+export const DAÑOS_MATERIALES = [
+  'Mobiliario',
+  'Estructura',
+  'Vegetación',
+  'Estructuras vecinas',
+  'Otro',
+]

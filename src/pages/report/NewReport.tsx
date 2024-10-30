@@ -1,21 +1,46 @@
-import Card from '../../components/report/new/Card'
+import { useState } from 'react'
+import Layout from '../../layouts/Layout'
+import Container from '../../components/UI/Container'
 import DataContent from '../../components/report/new/datos/DataContent'
+import Card from '../../components/report/new/Card'
 import Input from '../../components/report/new/datos/Input'
 import SelectTime from '../../components/report/new/datos/SelectTime'
 import Unidad from '../../components/report/new/unidades/Unidad'
 import Checkbox from '../../components/UI/Checkbox'
-import Container from '../../components/UI/Container'
-import { INCIDENT_LIST } from '../../constans/incidentList'
-import Layout from '../../layouts/Layout'
+import Select from '../../components/report/new/Select'
+import TextArea from '../../components/report/new/TextArea'
+import { DAÑOS_MATERIALES, INCIDENT_LIST } from '../../constants/incidentList'
+import { useAutoAnimation } from '../../hooks/useAutoAnimation'
+import IncidentContent from '../../components/report/new/incident/IncidentContent'
 
 export default function NewReport() {
+  const [incidentType, setIncidentType] = useState('')
+  const { animationParent } = useAutoAnimation()
+
+  const handleIncidentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIncidentType(event.target.value)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const fiels = Object.fromEntries(
+      new FormData(event.target as HTMLFormElement).entries()
+    )
+
+    console.log(fiels)
+  }
+
   return (
     <Layout title="Nuevo">
       <Container>
         <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-normal mb-2 lg:mb-4">
           Nuevo Servicio
         </h1>
-        <form className="flex flex-col gap-2 md:w-full">
+        <form
+          ref={animationParent}
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 md:w-full"
+        >
           <Card title="Datos del Servicio">
             <div className="flex flex-col items-center gap-2 p-4 lg:items-start lg:w-[870px]">
               <DataContent>
@@ -44,36 +69,20 @@ export default function NewReport() {
                 <SelectTime text="Llegada" />
               </DataContent>
 
-              <DataContent>
+              <DataContent animation={true}>
                 <SelectTime text="Control" />
 
                 <SelectTime text="Base" />
 
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="incidentes"
-                    className="block text-gray-800 font-semibold text-sm"
-                  >
-                    Incidentes:
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      className={`block text-sm h-[30px] rounded-md py-1 px-1.5 ring-1 ring-inset ring-gray-400 focus:text-gray-800`}
-                      list="incidentes-list"
-                      id="incidentes"
-                      name="incidentes"
-                      placeholder="Incidente"
-                    />
-                  </div>
+                <Select
+                  text="Incidentes"
+                  handleChange={handleIncidentChange}
+                  list={INCIDENT_LIST}
+                />
 
-                  <datalist id="incidentes-list">
-                    {INCIDENT_LIST.map((incidente) => (
-                      <option key={incidente} value={incidente}></option>
-                    ))}
-                  </datalist>
-                </div>
-
-                <Input name="Otro" className="w-44" />
+                {incidentType === 'Otro' && (
+                  <Input name="Otro" className="w-44" />
+                )}
               </DataContent>
             </div>
           </Card>
@@ -110,7 +119,9 @@ export default function NewReport() {
 
               <div className="flex flex-col gap-1 md:w-fit">
                 <div className="">
-                  <span>Rescate</span>
+                  <span className="text-gray-800 font-semibold text-sm">
+                    Rescate
+                  </span>
                 </div>
 
                 <div>
@@ -122,20 +133,28 @@ export default function NewReport() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1 md:w-fit">
-                <div className="">
-                  <span>Adicionales</span>
-                </div>
-
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="block p-2.5 w-full h-full resize-none text-sm text-gray-900 bg-slate-100/80 rounded-lg ring-1 ring-inset ring-gray-400"
-                  placeholder="Vehiculos Adicionales"
-                ></textarea>
-              </div>
+              <TextArea
+                name="Adicionales"
+                type="Unidades"
+                placeholder="Vehiculos Adicionales"
+              />
             </div>
           </Card>
+
+          <IncidentContent incidentType={incidentType} />
+
+          <Card title="Daños">
+            <div className="flex flex-row justify-center lg:justify-normal lg:gap-6 gap-5 p-4 lg:w-[870px]">
+              <Select text="Materiales" list={DAÑOS_MATERIALES} />
+              <TextArea name="Especifique" type="EspecifiqueDañosMateriales" />
+
+              <div className="w-[1.5px] h-32 bg-gray-600 opacity-20"></div>
+            </div>
+          </Card>
+
+          <div>
+            <button type="submit">Enviar</button>
+          </div>
         </form>
       </Container>
     </Layout>
