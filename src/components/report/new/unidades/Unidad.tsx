@@ -8,7 +8,7 @@ export default function Unidad({ unidad, children, cols }: Props) {
   return (
     <div className="flex flex-col gap-1 md:w-fit">
       <div>
-        <span>{unidad}</span>
+        <span className="text-sm text-gray-800 font-semibold">{unidad}</span>
       </div>
 
       {cols === undefined ? (
