@@ -216,12 +216,17 @@ export default function NewReport() {
                 </div>
               </Card>
 
-              {incidentType !== 'Otro' && (
-                <ContentButtons incidentType={incidentType} />
-              )}
+              <div className="hidden lg:block">
+                {incidentType !== 'Otro' && (
+                  <ContentButtons incidentType={incidentType} />
+                )}
+              </div>
             </div>
           </div>
 
+          <div className="lg:hidden block">
+            <ContentButtons />
+          </div>
           {incidentType === 'Otro' && (
             <ContentButtons incidentType={incidentType} />
           )}
